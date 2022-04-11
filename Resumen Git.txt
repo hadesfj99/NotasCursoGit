@@ -1,0 +1,15 @@
+git es un sistema de control de versiones en donde se va guardando los cambios realizados.
+este sistema funciona muchoh mejor en archivos de texto plano
+
+* Para inicializar git (luego de haberlo instalado) se debe escribir el comando en consola (linux) git init
+se debe tener mucho cuidado de no usar este codigo en una carpeta que ya contenga un repositorio pues lo reinica
+
+en Git se pueden conceptualizar 3 o 4 lugares:
+1: El disco duro o directorio
+2: La memoria Ram o Stagin area
+3: El area de Repositorio local
+4: Repositorio remoto.
+
+Crear un archivo en el directorio lo sabemos hacer. Es como normalmente trabajamos
+Una vez se han realizado todos los cambios deseados en el o los archivos. Se envian estos cambios a la zona 2, el Staging.
+ 
