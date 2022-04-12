@@ -1,8 +1,13 @@
 git es un sistema de control de versiones en donde se va guardando los cambios realizados.
 este sistema funciona muchoh mejor en archivos de texto plano
 
-* Para inicializar git (luego de haberlo instalado) se debe escribir el comando en consola (linux) git init
-se debe tener mucho cuidado de no usar este codigo en una carpeta que ya contenga un repositorio pues lo reinica
+* Para inicializar git (luego de haberlo instalado) se debe escribir el comando en consola (linux) 
+git init
+se debe tener mucho cuidado de no usar este codigo en una carpeta que ya contenga un repositorio pues lo reinica.
+
+Se debe tambien definir un usuario y email. Para hacerlo se puede utilizar las funciones:
+git config --global user.name "nombreDelUsuario"
+git config --global user.email "email"
 
 en Git se pueden conceptualizar 3 o 4 lugares:
 1: El disco duro o directorio
@@ -10,6 +15,33 @@ en Git se pueden conceptualizar 3 o 4 lugares:
 3: El area de Repositorio local
 4: Repositorio remoto.
 
-Crear un archivo en el directorio lo sabemos hacer. Es como normalmente trabajamos
-Una vez se han realizado todos los cambios deseados en el o los archivos. Se envian estos cambios a la zona 2, el Staging.
- 
+Zona 1
+
+Crear un archivo en el directorio lo sabemos hacer todos. Es como normalmente trabajamos
+Una vez se han realizado todos los cambios deseados en el o los archivos guradamos los cambios en el disco duro, en el directorio, en la zona 1.
+
+Para trabajar con git lo que se hace es enviar este conjunto de cambios a la zona 3. Para eso deben pasar por una zona inermedia, la zona 2, El Staging. 
+
+Zona 2
+
+Para pasar cambios al Saging se utiliza el comando git add nombreDelArchivo. Si se quiere agregar los cambios de todo el directorio se puede utilizar un punto en lugar de el nombre de cada archivo. Cuando se quiere agregar mas de un archivo al cual se le haya hecho cambios se pueden separar los nombres por un espacio. recordar que cuando el nombre del archivo tiene espacios se debe utilizar comillas simples para agregar su nombre. 
+por ejemplo: git add archivo1 'archivo 2'
+
+Zona 3.
+
+Para que el conjunto de cambios pasen a la zona 3, El Repositorio, se debe utilizar la funcion git commit -m "nombreDelComit". Al hacer esto los cambios guardados en este conjunto de cambios son guradados en un solo registro con un numero asociado y su comentario.
+
+Zona 4
+
+Finalmente luego de esto, todos los cambios realizados se pueden elevar a un repositorio externo. Para hacer esto se utiliza el comando 
+
+git --help muestra la mayoria de los comandos existentes.
+git help workflows muestra informacion y recomendaciones para trabajar en git.
+
+¿Como saber si un archivo ya esta en el Stagin?
+
+Para saber esto podemos usar la funcion git status. Esto muestra todos los archivos que hayan recivido cambios en el directorio y cuales ya han pasado al Staging.
+
+Eliminar un archivo del Saging
+
+Para eliminar un archivo en el staging se puede usar la funcion git restore -s nombreDelArchivo.
