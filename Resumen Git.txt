@@ -89,6 +89,15 @@ Para eliminar un archivo en el staging se puede usar la funcion
     git restore -s nombreDelArchivo.
 Si no se coloca -s ni el nombre del archivo borra todo el staging
 
+
+git log EXPLORANDO NUESTRO COMMITS
+-----------------------------------
+
+Luego de que estamso seguros sobre los cambios que queremos enviar al repositorio dijimos que hay que usar la funcion git commit (ver zona 3) y agregar un comentario. Para poder revisar todos los commits que se puede utilizar la funcion:
+    git log
+Esta funcion muesta el Hash de cada commit, donde esta el HEAD y el nombre de la rama, el autor del commit, la fecha de su creacion y el comentario que describe el commit. Cuando se realizaron ya muchos commits toda esta informacion puede ocupar demasiado espacio por lo que es tal vez se prefiera una version resumida de este comando que se logra con la bandera --oneline. Esta bandera muestra lolo el hash y el comentario de cada commit.
+git log tiene demasiadas banderas se deben aprender de a poco.
+
 git diff COMPARANDO 2 COMMITS
 ---------
 Algunas veces es deseable saber cuales son los cambios que se han realizado. Para comparar los cambios que existen entre un archivo en el directorio y en el staging se puede usar el comando 
@@ -108,9 +117,15 @@ GIT crea una estructura del historial de cambios por el cual pasa el proyecto. E
 
 Ramas
 
-Es posible dividir la linea de trabajo en ramas, por defecto la linea de trabajo se situa siempre el la linea principal (MAIN), pero es posible crear una rama (BRANCH) no nombre y seguir una linea de trabajo paralela. Para hacer esto se utiliza la funcion 
+Es posible dividir la linea de trabajo en ramas, por defecto la linea de trabajo se situa siempre el la linea principal (main o master), pero es posible crear una rama (BRANCH) no nombre y seguir una linea de trabajo paralela. Antes de crear una rama nueva primero queremos saber en que rama nos encontramos. para saberlo usamos la funcion:
+    git branch
+Esto no devuelve el nombre de la rama donde estamos. Para crear una rama neuva primero debemos situar el HEAD sobre el commit de donde se va a ramificar el trabajo usando checkout (ver mas abajo) y luego crear la rama nueva con la fincion branch de la siguiete manera: 
     git branch nombreDeLaRama
-Git recomienda usar un metodo llamado git flow para trabajar en el cual se toca la rama principal (MAIN) solo cuado el comit que se va a hacer es un avance definitivo y no pasos intermedios o pruebas, para esto se crea una rama llamada development (desarrollo) que es donde se va creando el codigo que luego sale a produccion, es decir la rama MAIN. Cuando un codigo en la rama development esta listo no va directamente a MAIN sino que va a una nueva rama llamada release donde se testea y se corrigen los ultimos detalles que pueda haber y desde ahi se manda a MAIN.
+Esto crea la nueva rama pero no nos mueve a ella, para movernos a esta rama se puede usar checkout o usar la funcion switch:
+    git switch nombreDeLaRama
+Esto nos mueve al ultimo commit de esta rama. 
+
+Git recomienda usar un metodo llamado git flow para trabajar en el cual se toca la rama principal (MAIN) solo cuado el comit que se va a hacer es un avance definit ivo y no pasos intermedios o pruebas, para esto se crea una rama llamada development (desarrollo) que es donde se va creando el codigo que luego sale a produccion, es decir la rama MAIN. Cuando un codigo en la rama development esta listo no va directamente a MAIN sino que va a una nueva rama llamada release donde se testea y se corrigen los ultimos detalles que pueda haber y desde ahi se manda a MAIN.
 Otro tipo de rama es feature, en esta rama se desarrollan cualquier nuevo aspecto o novedad para la aplicacion de development.
 Para UNIR ramas se utiliza la función
     git marge NombreDeLaRama.
@@ -159,4 +174,8 @@ MAIN C0--C1--C2--C1'--C3 (HEAD)
 
 En este ejemplo el C2 es un fallo y se aplica revert C1, luego se sigue trabajando y se crea C3.
 
+git ignore IGNORANDO ARCHIVOS ESPECIFICOS
+---------------------------------------------
+
+Cuando queremos que git no tenga en cuenta algunos tipos de archivos devemos crear un archiovo .gitignore y dentro de este archivo listar los archivos que no queremos que git tenga en cuenta. Por ejemplo si no queremos que git tenga encuenta imagenes jpg en nuestro proyecto dentro de gitignore escribimos: .jpg o si hay un archivo determinado que solo creamos para recordarnos algo a nosotros, por ejemplo un txt llamado tareas.txt que nos recuerde las tareas a realizar en el proyecto pues en una nueva linea escribimos tareas.txt De esta manera git no tendra en cuenta este archivo de ninguna manera.
 
