@@ -89,10 +89,16 @@ Para eliminar un archivo en el staging se puede usar la funcion
     git restore -s nombreDelArchivo.
 Si no se coloca -s ni el nombre del archivo borra todo el staging
 
+git diff COMPARANDO 2 COMMITS
+---------
+Algunas veces es deseable saber cuales son los cambios que se han realizado. Para comparar los cambios que existen entre un archivo en el directorio y en el staging se puede usar el comando 
+    git diff
+Para salir de este comando hay que presionar la letra q.
 
-COMPARAR 2 COMMITS 
+El comando mostrará las diferencias en cada zona, (cuando no hay archivos en el staging este comando no muestra nada). El comando simbolizará con --- el archivo antiguo(en el staging) y con +++ el archivo con modificaciones(en el directorio) aparte mostrara informacion entre @s con el siguiente formato: @@ -n,nn +m,mm@@
+Esto quiere decir que se encontraron diferencias en el archivo antiguo desde la linea n, y se encontraron en total nn lineas modificadas, tambien que el archivo nuevo modifica desde la linea m, y que modifica o agrega mm lineas en total.
 
-Cuando queremos ver los cambios hechos entre 2 comits se puede utilizar la funcion
+Cuando queremos ver los cambios entre nuestro directorio y el repositorio hay que agregar al codigo el Hash del commit con el cual queremos comparar. Y si lo que queremos es comparar 2 commits pues se debe agregar sus dos Hash separados por un espacio:
     git diff NrCommit NroComit2.
 Primero se debe colocar el nro mas viejo y luego el nro del commit mas reciente.
 
