@@ -1,13 +1,30 @@
-git es un sistema de control de versiones en donde se va guardando los cambios realizados.
-este sistema funciona muchoh mejor en archivos de texto plano
+git es un sistema de control de versiones en donde se va guardando los cambios realizados con un sistema de que controla cuales fueron esos cambios. El sistema se ejecuta en consola o terminal. se recomienda no usar la termianl de windows. Es mejor operar en algun OS diferente pero git creo tb una herramienta llamada git bash que permite ejecutar las caracteristicas de linux o mac en windows. Es muy recomendable usar esta caracteristica si el OS es windos o sino instalar WSL (windows sub sistem for linux).
+Para ejecutar cualquier funcion de este sistema deberá primero escribirse la palabra git en la terminal y luego otra palabra para designar cual de las funciones de este sistema se ejecutará.
 
-* Para inicializar git (luego de haberlo instalado) se debe escribir el comando en consola (linux) 
-git init
-se debe tener mucho cuidado de no usar este codigo en una carpeta que ya contenga un repositorio pues lo reinica.
+Este sistema funciona mucho mejor en archivos de texto plano. Pero tabien funciona para archivos de mapas bits como DOC o DOCX aunque no es tan util.
 
-Se debe tambien definir un usuario y email. Para hacerlo se puede utilizar las funciones:
-git config --global user.name "nombreDelUsuario"
-git config --global user.email "email"
+Configuraciones iniciales
+-------------------------
+
+Lo primero es definir un usuario y email. Para hacerlo se puede utilizar las funciones:
+    git config --global user.name "nombreDelUsuario"
+    git config --global user.email "email"
+
+Otra caracteristica a tener en cuenta es que se puede configurar el editor de texto por defecto. Para definir visual studio code como editor por defecto el codigo a introducir es:
+    git config --global core.editor "code --wait" 
+(wait pide que la terminal espere a que el editor se cierre)
+Para ver toda la lista de configuraciones posibles se puede usar el comando
+    git config -h
+
+
+Comenzando a usar el sistema
+----------------------------
+
+* Para inicializar git (luego de haberlo instalado) se debe escribir el comando en consola (linux, wsl, git bash, pero no cmd, etc..) 
+    git init
+Este comando debe ejecutarse en la carpeta principal de nuestro proyecto. Esto le dice a git que cree una subcarpeta (oculta) donde se van a registrar los cambios en archivos que estend dentro de esta carpeta y dentro de otras subcarpetas.
+Se debe tener mucho cuidado de no usar este codigo en una carpeta que ya contenga un repositorio pues lo reinica.
+
 
 en Git se pueden conceptualizar 3 o 4 lugares:
 1: El disco duro o directorio
@@ -24,24 +41,116 @@ Para trabajar con git lo que se hace es enviar este conjunto de cambios a la zon
 
 Zona 2
 
-Para pasar cambios al Saging se utiliza el comando git add nombreDelArchivo. Si se quiere agregar los cambios de todo el directorio se puede utilizar un punto en lugar de el nombre de cada archivo. Cuando se quiere agregar mas de un archivo al cual se le haya hecho cambios se pueden separar los nombres por un espacio. recordar que cuando el nombre del archivo tiene espacios se debe utilizar comillas simples para agregar su nombre. 
+Para pasar cambios al Saging se utiliza el comando 
+    git add nombreDelArchivo. 
+Si se quiere agregar los cambios de todo el directorio se puede utilizar un punto en lugar de el nombre de cada archivo. Cuando se quiere agregar mas de un archivo al cual se le haya hecho cambios se pueden separar los nombres por un espacio. recordar que cuando el nombre del archivo tiene espacios se debe utilizar comillas simples para agregar su nombre. 
 por ejemplo: git add archivo1 'archivo 2'
 
 Zona 3.
 
-Para que el conjunto de cambios pasen a la zona 3, El Repositorio, se debe utilizar la funcion git commit -m "nombreDelComit". Al hacer esto los cambios guardados en este conjunto de cambios son guradados en un solo registro con un numero asociado y su comentario.
+Para que el conjunto de cambios pasen a la zona 3, El Repositorio, se debe utilizar la funcion 
+    git commit -m "nombreDelComit".
+Al hacer esto los cambios guardados en este conjunto de archivos son guradados en un solo registro con un numero asociado llamdo Tag o Hash y su comentario. Al mismo tiempo son borrados del staging.
+Los comentarios en los commits son obligatorios. Si por alguna razon olvidamos colocar uno, automaticamente se abrira el editor de texto vim y nos pedirá ingresar un comentario. Para finalizar el comentario se debe presionar ctrl + x y luego enter.
+
+Para llevar un archivo de esta zona a la zona 1, el directorio, se debe utilizar la funcion
+    git chekout nombreDelArchivoEnElRepositorio
+
 
 Zona 4
 
 Finalmente luego de esto, todos los cambios realizados se pueden elevar a un repositorio externo. Para hacer esto se utiliza el comando 
+    git push url
+Para traer un repositorio remoto a el repositorio local se utiliza la funcion:
+    git clone url
+La url es la del repositorio remoto.
+Algunas veces el repoitiorio remoto puede haber tenido cambios y actulaizaciones, para traerlas al repositorio remoto se utiliza el comando:
+    git fetch
+Para luego traer esos cambios al directorio se debe realizar un merge.
+Estos dos pasos se pueden abreviar en uno solo utilizando el comando 
+git pull
 
-git --help muestra la mayoria de los comandos existentes.
-git help workflows muestra informacion y recomendaciones para trabajar en git.
 
-¿Como saber si un archivo ya esta en el Stagin?
+Ayuda
+    git --help muestra la mayoria de los comandos existentes.
+    git help workflows muestra informacion y recomendaciones para trabajar en git.
 
-Para saber esto podemos usar la funcion git status. Esto muestra todos los archivos que hayan recivido cambios en el directorio y cuales ya han pasado al Staging.
+git status
+----------
 
-Eliminar un archivo del Saging
+¿Como saber si un archivo ya esta en el Staging? Para saber esto podemos usar la funcion 
+    git status.
+Git status muestra los archivos que ya estan en el staiging en color verde. Les marca con una A a los archivos nuevos que no estaban sinedo seguidos por git y les marca una M si es una modificacion a algun archivo que ya estaba siendo seguido por git. Ademas muestra en Rojo los archivos nuevos o modificados que no estan siendo rastreados o los archivos que hayan recibido algun cambio.
+Esto muestra todos los archivos que hayan recivido cambios en el directorio y cuales ya han pasado al Staging. Se muestran en rojo archivos. Ademas informa el nombre de la rama en que estamos trabajando y presenta informacion adicional. Para un informe resumido se puede agregar al comando la bandera -s.  
 
-Para eliminar un archivo en el staging se puede usar la funcion git restore -s nombreDelArchivo.
+Eliminar un archivo del Staging
+
+Para eliminar un archivo en el staging se puede usar la funcion
+    git restore -s nombreDelArchivo.
+Si no se coloca -s ni el nombre del archivo borra todo el staging
+
+
+COMPARAR 2 COMMITS 
+
+Cuando queremos ver los cambios hechos entre 2 comits se puede utilizar la funcion
+    git diff NrCommit NroComit2.
+Primero se debe colocar el nro mas viejo y luego el nro del commit mas reciente.
+
+Estructura de Arbol de commits
+------------------------------
+GIT crea una estructura del historial de cambios por el cual pasa el proyecto. Esta estrucutura por lo general tiene forma de arbol. Se tiene una linea principal y ocacionalmente puede tener ramificaciones que pueden o no uniendose nuevamente a la linea principal.
+
+Ramas
+
+Es posible dividir la linea de trabajo en ramas, por defecto la linea de trabajo se situa siempre el la linea principal (MAIN), pero es posible crear una rama (BRANCH) no nombre y seguir una linea de trabajo paralela. Para hacer esto se utiliza la funcion 
+    git branch nombreDeLaRama
+Git recomienda usar un metodo llamado git flow para trabajar en el cual se toca la rama principal (MAIN) solo cuado el comit que se va a hacer es un avance definitivo y no pasos intermedios o pruebas, para esto se crea una rama llamada development (desarrollo) que es donde se va creando el codigo que luego sale a produccion, es decir la rama MAIN. Cuando un codigo en la rama development esta listo no va directamente a MAIN sino que va a una nueva rama llamada release donde se testea y se corrigen los ultimos detalles que pueda haber y desde ahi se manda a MAIN.
+Otro tipo de rama es feature, en esta rama se desarrollan cualquier nuevo aspecto o novedad para la aplicacion de development.
+Para UNIR ramas se utiliza la función
+    git marge NombreDeLaRama.
+Esta funcion crea un commit ligado al comit anterior de la rama donde esta el HEAD y le agrega los cambios que vienen de la rama nombrada. Para que estos cambios tambien figuren en la rama nombrada sse debe realizar otro commit situando el HEAD sobre el commit de la rama y luego escribiendo git merge main. es decir, tratuendo los cambios de main a la rama.
+================================================
+git checkout
+
+Ya se ha hablado un poco de esta funcion pero en realidad esta funcion puede hacer mucho mas que restarurar un archivo. Esta funcion sirve para llevar el directorio actual al estado de cualquier commit si en lugar del nombre de un archivo se coloca el nro del commit de interes (el hash o tag). Checkout sierve para mover el punto de atencion (HEAD) del proyecto de un commit a otro
+Imaginemos el siguiente repositorio:
+
+MAIN C0----C1---------C4 (merge)
+DEVELOP    C1----C2----|C5----C6 ----C7 head
+RELEASE          C2---C3
+
+En este ejemplom se creo el commit 0 en la rama prinicpal y luego el commit 1. De ahi se crea la rama develop con git branch DEVELOP. Luego el Head sigue en esta rama y se crea el comit 2. Este comit se deve enviar a la rama master. para eso se usa la rama release. se corrigen los ultimos detalles y se crea el comit 3. Luego se unen las 3 ramas, develop, main y release, con el doble commit. Despues el head se situa en c5 y el desarrollo continuea con C6 y luego con C7. Si por alguna razon se tuviera que dar marcha atas para crear una rama se debe usar checkout para moverse por ejemplo a C6 y desde aqui crear una nueva rama por ejemplo feauture. Enctonces otra vez con checkout podemos mover nuevamente el Head a c7 y continuar trabanado sobre la rama develop.
+
+Moviendose por el arbol.
+
+Lo mas simple seria usar chekout y el hash del commit para ir a ese punto. Pero hay otras formas mas rapidas. Pueden usarse atajos relativos. en el ejemplo anterior. El head esta en la rama develop en el commit C7. Se puede usar Checkout develop^ para volver al comit anterior de esa rama, es decir al commit C6. el operador ^ puede usarse varias veces para retroceder las veces que se quiera. pero cuando se quiere retroceder mas veces se puede utilizar el operador ~. por ejemolo C7^^^ lleva el Head al commit C2, pero igualmente se puede hacer con ~3. Estos operadores son relativos asi que se debe indicar la referencia antes del operador. es decir puede escribirse checkout C3^ y el Head se movera automanticamente a C2 en la rama RELESE. Si se indica el nombre de una rama como referencia se tomara el ultimo commit de esa rama como referencia.
+
+Cambiando el nombe a las Ramas.
+
+Si por alguna razon necesito mover una rama de un commit a otro, hacerla retroceder o avanzar puede usarse la funcion branch -f.
+    git branch -f nombreDeLaRama nroHash
+git branch -f release C7 hacer que los comits C5 C6 y C7 pertenezcan a las ramas develop y release. Si se escribe git branch -f develop C2. la rama develop retrocede hasta el ese commit.
+
+Git Revert y Reset 
+
+Cuando se comete un error con un commit a veces es necesario eliminarlo, pero git no elimina nada. Lo que hará es obviarlo. Hay 2 formas de hacer esto. 
+*Git reset: La primera con git reset. Esto hace que la referencia de una rama vuelva hacia atras sin tomar el commit errado como parte de ella. Su sintaxis es:
+    git reset referencia
+la referencia debe designar el comit hasta donde se pretende retroceder.
+
+MAIN C0---C1---C3---C4
+           |
+           - C2
+En ese ejemplo se crea el C0, luego el C1 y luego el C2. Este fue un error asi que se aplica git reset C1 y se continua trabajando, el siguiente commit sera C3 y luego C4. C2 ya no pertenece a la rama MAIN.
+Este comando tiene 2 subfinciones que seon --hard y --soft. --soft deja lo que esta en staging.
+
+*git revert: esta funcion crea un nuevo comit delante del commit actual y erroneo. Este nuevo commit es una copia del commit al que se quiere regresar. Su sintaxis es 
+    git revert referencia
+La referencia es el hash del commit al cual se quiere regresar.
+En el siguiente ejemplo se muestra como queda un arbol luego de aplicado este comando.
+
+MAIN C0--C1--C2--C1'--C3 (HEAD) 
+
+En este ejemplo el C2 es un fallo y se aplica revert C1, luego se sigue trabajando y se crea C3.
+
+
